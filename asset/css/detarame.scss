@@ -1,0 +1,761 @@
+/*
+ * detarame.js
+ */
+
+html,body{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+$debugMode : false;
+
+@if $debugMode == true{
+	*{
+		outline: solid 1px red;
+	}	
+}
+
+
+body{
+	font-size: 16px;
+	font-family: UtsukushiMincho;
+}
+
+
+@mixin transition($property : all, $duration : .5s, $timing : ease, $delay : 0s){
+	-webkit-transition: $property $duration $timing $delay;
+	   -moz-transition: $property $duration $timing $delay;
+	    -ms-transition: $property $duration $timing $delay;
+	     -o-transition: $property $duration $timing $delay;
+	        transition: $property $duration $timing $delay;	
+}
+
+.background{
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+section#welcome{
+	#welcome_header{
+		height: 80px;
+		.background{
+			background-color: #333631;
+		}
+		a{
+			color: #eaf4fc;
+			&:hover{
+				color: #e6cde3;
+				text-decoration: none;
+			}
+		}
+		p{
+			padding: 30px 0px;
+			font-size: 20px;
+			line-height: 1;
+		}
+	}
+	#welcome_lead{
+		background-image: url("../img/hokusai.jpg");
+		background-attachment: fixed;
+		background-position: center center;
+		background-size: 110%;
+		background-repeat: no-repeat;
+		color: #eaf4fc;
+		@media screen and (max-width: 650px) {
+			background-size: cover;
+		}
+		.background{
+			position: relative;
+			background-color: rgba(0,0,0,0.8);
+			.container{
+				padding: 5em 0em 5em 0em;
+				line-height: 2;
+				em{
+					display: inline-block;
+					padding: 0 0.25em;
+					color: #e2041b;
+					text-decoration: underline;
+					font-style: normal;
+				}
+				& > *{
+					margin-top: 0;
+					margin-bottom: 1.5em;	
+				}
+				& > p{
+					margin-right: auto;
+					margin-left: auto;
+					width: 500px; 
+				}
+				.btn{
+				    @include transition(background-color);
+					display: inline-block;
+					width: 120px;
+			        border-radius: 0;
+					background-color: #478384;
+			        box-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+			        color: #FFF;
+			        text-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+					word-spacing: 2em;
+					font-size: 110%;	
+			        &:hover{
+					    @include transition(background-color);
+			        	background-color: lighten(#478384, 5%);
+			        }
+			        &:active{
+				        @include transition(background-color);
+			        	background-color: darken(#478384, 5%);
+			        }			        
+				}
+			}
+		}	
+	}
+	#welcome_detail{
+		padding-bottom:5em;
+		.container{
+			padding: 2em;
+			border-bottom: solid 1px #CCC;
+			h2{
+				display: block;
+				width:100%;
+				text-align: center;
+			}
+			p{
+				margin-bottom: 3em;
+			}
+			img{
+				display: block;
+				margin: 0 auto;
+				width: 200px;
+				height: 200px;
+			}
+		}
+	}
+	#welcome_footer{
+		padding: 2em 0em 10em;
+		background-color: #dcd3b2;
+		text-align: center;
+	}
+}
+
+
+@mixin bingo-ball($size : 100px, $color : #BBBBBB, $bodySize : $size * 0.8){
+	width: #{$bodySize};
+	height: #{$bodySize};
+	display: block;
+	float: left;
+	font-family: Quicksand-Bold;
+	position: relative;
+	color: #{$color};
+	padding: #{$size * 0.1};
+	&:before{
+		text-align: center;
+		font-size: $bodySize * 0.5;
+		padding: $bodySize * 0.18 0;
+		content: attr(data-number);
+		display: block;
+		width: $bodySize;
+		height: $bodySize;
+		background-color: #FFF;
+		border-bottom: solid #{$bodySize * 0.1};
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+		        box-sizing: border-box;
+	}
+
+	&.col-1{
+		color : #96514d;		
+	}
+
+	&.col-2{
+		color : #e6b422;		
+	}
+
+	&.col-3{
+		color : #006e54;		
+	}
+
+	&.col-4{
+		color : #5b7e91;		
+	}
+
+	&.col-5{
+		color : #895b8a;		
+	}
+
+	&.uncalled{
+		opacity: 0.2;
+	}
+}
+
+@mixin transform($translateX : 0, $translateY : 0, $rotateX : 0deg, $rotateY : 0deg, $rotateZ : 0deg, $scaleX : 1, $scaleY : 1){
+	-webkit-transform: translate($translateX, $translateY) rotateX($rotateX) rotateY($rotateY) rotateZ($rotateZ) scaleX($scaleX) scaleY($scaleY);
+	   -moz-transform: translate($translateX, $translateY) rotateX($rotateX) rotateY($rotateY) rotateZ($rotateZ) scaleX($scaleX) scaleY($scaleY);
+	    -ms-transform: translate($translateX, $translateY) rotateX($rotateX) rotateY($rotateY) rotateZ($rotateZ) scaleX($scaleX) scaleY($scaleY);
+	     -o-transform: translate($translateX, $translateY) rotateX($rotateX) rotateY($rotateY) rotateZ($rotateZ) scaleX($scaleX) scaleY($scaleY);
+	        transform: translate($translateX, $translateY) rotateX($rotateX) rotateY($rotateY) rotateZ($rotateZ) scaleX($scaleX) scaleY($scaleY);
+}
+
+#app{
+
+	$boxBgColor 		: #E3E3E1;//#e2041b;
+	$boardBgColor		: #E3E3E1;//#d7cf3a;
+	$prizeBgColor		: #E3E3E1;//#4c6cb3;
+	$bingoCallBgColor	: #E3E3E1;//#c3d825;
+	$lizhiCallBgColor	: #E3E3E1;//#eb6101;
+	$controllerBgColor	: #d3cbc6;//#2b2b2b;
+
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+
+ 	.app_section{
+ 		width: 100%;
+		height: 100%;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+		-webkit-transition: top .5s ease 0s, left .5s ease 0s;
+		   -moz-transition: top .5s ease 0s, left .5s ease 0s;
+		    -ms-transition: top .5s ease 0s, left .5s ease 0s;
+		     -o-transition: top .5s ease 0s, left .5s ease 0s;
+		        transition: top .5s ease 0s, left .5s ease 0s;
+ 	}
+
+	#box{
+		background-color: #{$boxBgColor};
+		#history{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100px;
+			overflow: visible;
+			z-index: 10;
+			.inner{
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 100;
+				overflow: scroll;
+				overflow-x: scroll;
+				overflow-y: hidden;
+			}
+			&:before{
+				content: "";
+				display: block;
+				width: 100%;
+				height: 100%;
+				background-color: #F4F4F4;
+				border-top: 1px solid rgba(0,0,0,0.2);
+				border-bottom: 1px solid rgba(0,0,0,0.2);
+			}
+
+			.bingo-ball{
+				@include bingo-ball(100px);
+			}
+		}
+
+		#port{
+			-webkit-box-sizing: border-box;
+			   -moz-box-sizing: border-box;
+			        box-sizing: border-box;
+		    height: 100%;
+		    width: 100%;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    z-index: 20;
+		    padding-top: 100px;
+		    
+		    .inner{
+		    	position: relative;
+		    	width: 100%;
+		    	height: 100%;
+		    }
+
+		    .bingo-ball{
+		    	position: absolute;
+		    	top: 50%;
+		    	left: 50%;
+		    	-webkit-transform: translate(-50%, -50%);
+		    	   -moz-transform: translate(-50%, -50%);
+		    	    -ms-transform: translate(-50%, -50%);
+		    	     -o-transform: translate(-50%, -50%);
+		    	        transform: translate(-50%, -50%);
+		    }
+
+		    #port_number{
+		    		-webkit-transform: translate(-50%, -50%) rotateY(0deg);
+		    		   -moz-transform: translate(-50%, -50%) rotateY(0deg);
+		    		    -ms-transform: translate(-50%, -50%) rotateY(0deg);
+		    		     -o-transform: translate(-50%, -50%) rotateY(0deg);
+		    		        transform: translate(-50%, -50%) rotateY(0deg);
+		    		-webkit-transition: -webkit-transform  0s ease 0s;
+		    		   -moz-transition:    -moz-transform  0s ease 0s;
+		    		    -ms-transition:     -ms-transform  0s ease 0s;
+		    		     -o-transition:      -o-transform  0s ease 0s;
+		    		        transition:         transform  0s ease 0s;
+		    	&.fixed{
+		    		-webkit-transform: translate(-50%, -50%) rotateY(360deg);
+		    		   -moz-transform: translate(-50%, -50%) rotateY(360deg);
+		    		    -ms-transform: translate(-50%, -50%) rotateY(360deg);
+		    		     -o-transform: translate(-50%, -50%) rotateY(360deg);
+		    		        transform: translate(-50%, -50%) rotateY(360deg);		    		
+		    		-webkit-transition: -webkit-transform  .2s linear 0s;
+		    		   -moz-transition:    -moz-transform  .2s linear 0s;
+		    		    -ms-transition:     -ms-transform  .2s linear 0s;
+		    		     -o-transition:      -o-transform  .2s linear 0s;
+		    		        transition:         transform  .2s linear 0s;
+		    	}
+
+
+		    }
+		    
+		    @for $i from 1 to 10{
+
+		    	$minHeight: 300px + $i * 50;
+		    	$ballSize:  ($minHeight - 100);
+		    	
+		    	@media screen and (min-height: #{$minHeight}) and (min-width: #{$minHeight}){
+			    	.bingo-ball{
+			    		@include bingo-ball($ballSize);
+			    	}		    		
+		    	}
+
+		    }
+		}
+	}
+
+	#board{
+		background-color: #{$boardBgColor};
+		.board-col{
+			width: 20%;
+			height:100%;
+			float: left;
+			overflow: hidden;
+		}
+
+		&>.inner{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			   -moz-transform: translate(-50%, -50%);
+			    -ms-transform: translate(-50%, -50%);
+			     -o-transform: translate(-50%, -50%);
+			        transform: translate(-50%, -50%);
+		}
+
+
+		@for $i from 1 to 10{
+
+			$ballSize : (30px + ($i * 10));
+
+			$minWidth : $ballSize * 10;
+			$minHeight : $ballSize * 8;
+
+			@media screen and (min-width: #{$minWidth}) and (min-height: #{$minHeight}){
+				.bingo-ball{
+					@include bingo-ball($ballSize);
+				}
+
+				.inner{
+					width: #{$minWidth};
+					height: #{$minHeight};
+				}
+			}			
+		}
+	}
+
+	#prize{
+		opacity: 1;		
+		background-color: #{$prizeBgColor};
+		
+		&>.inner{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			   -moz-transform: translate(-50%, -50%);
+			    -ms-transform: translate(-50%, -50%);
+			     -o-transform: translate(-50%, -50%);
+			        transform: translate(-50%, -50%);
+			
+			.prize-unit{
+				-webkit-box-sizing: border-box;
+				   -moz-box-sizing: border-box;
+				        box-sizing: border-box;
+				float: left;
+				position: relative;
+				padding: 10px;
+				&>.inner{
+					box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+					width: 100%;
+					height: 100%;
+					background: #FFF;
+					cursor: pointer;
+
+					.prize-image{
+						float: left;
+					}
+					.prize-content{
+						float: left;
+						.prize-title{
+							line-height: 1.8;
+							font-width: bold;
+							color: #333;
+							text-align: center;
+							text-shadow: 0px 0px #333;
+						}
+						.prize-description{
+							color: #999;
+							font-width: normal;
+						}
+					}
+					-webkit-transition: all 1s ease 0s;
+					   -moz-transition: all 1s ease 0s;
+					    -ms-transition: all 1s ease 0s;
+					     -o-transition: all 1s ease 0s;
+					        transition: all 1s ease 0s;
+				}
+
+				&.called{
+					&>.inner{
+						opacity: 0.5;
+						-webkit-transform: rotateX(0deg);
+						   -moz-transform: rotateX(0deg);
+						    -ms-transform: rotateX(0deg);
+						     -o-transform: rotateX(0deg);
+						        transform: rotateX(0deg);
+					}
+				}
+
+				&.uncalled{
+					&>.inner{
+						opacity: 1;
+						-webkit-transform: rotateX(360deg);
+						   -moz-transform: rotateX(360deg);
+						    -ms-transform: rotateX(360deg);
+						     -o-transform: rotateX(360deg);
+						        transform: rotateX(360deg);						
+					}
+				}
+			}
+		}
+
+		@for $i from 1 to 20{
+			$unitWidth 	: (100px + ($i * 10));
+			$unitHeight : (50px + ($i * 10));
+
+			$minWidth 	: $unitWidth * 5;
+			$minHeight 	: $unitHeight * 5;
+
+			$unitInnerWidth   : $unitWidth - 20;
+			$unitInnerHeight  : $unitHeight - 20;
+
+			@media screen and (min-width: #{$minWidth}) and (min-height: #{$minHeight}){
+
+				&>.inner{
+					width: #{$minWidth};
+					height: #{$minHeight};
+				}
+
+				.prize-unit{
+					width: #{$unitWidth};
+					height: #{$unitHeight};
+
+					&>.inner{
+						.prize-image{
+							display: none;
+							width: #{$unitInnerWidth};
+							height: #{$unitInnerHeight * 0.5};
+						}
+						.prize-content{
+							width: #{$unitInnerWidth};
+							height: #{$unitInnerHeight * 0.5};
+							.prize-title{
+								height: #{$unitInnerHeight * 0.2};
+								font-size: #{$unitInnerHeight * 0.18};
+								padding:#{$unitInnerHeight * 0.15} #{$unitInnerHeight * 0.1};
+							}
+							.prize-description{
+								display: none;
+								height: #{$unitInnerHeight * 0.1};
+								font-size: #{$unitInnerHeight * 0.1};
+								padding-top: #{$unitInnerHeight * 0.05};
+								padding-left: #{$unitInnerHeight * 0.1};
+							}
+						}
+					}
+				}			
+			}
+		}
+	}
+
+	#bingo_call{
+		opacity: 1;		
+		background-color: #{$bingoCallBgColor};
+	}
+
+	#lizhi_call{
+		opacity: 1;		
+		background-color: #{$lizhiCallBgColor};
+	}
+
+	#controller{
+		width: 100%;
+		height: 50px;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
+		
+		.button{
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			height: 20px;
+			width: 24px;
+			z-index: 1050;
+			padding: 15px 13px;
+			cursor: pointer;
+			.border{
+				width: 24px;
+				height: 4px;
+				background-color: #5a544b;
+				-webkit-border-radius: 4px;
+				        border-radius: 4px;
+				margin-bottom: 4px;
+			}
+		}
+
+		.content{
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: #{$controllerBgColor};
+			height: 100%;
+			width: 100%;
+			z-index: 1000;
+			-webkit-transition: top .5s ease 0s;
+			   -moz-transition: top .5s ease 0s;
+			    -ms-transition: top .5s ease 0s;
+			     -o-transition: top .5s ease 0s;
+			        transition: top .5s ease 0s;
+			.control-button{
+				width : 30px;
+				height: 30px;
+				padding: 10px;
+				float: left;
+				cursor: pointer;
+				position: relative;
+				svg{
+					z-index: 100;
+					display: block;
+					width : 100%;
+					height: 100%;
+				}
+
+				&:hover{
+					background-color: rgba(0,0,0,0.1);
+					box-shadow: 0px 0px rgba(0,0,0,0.2) inset;
+				}	
+			}
+		}
+
+		&.view{
+			.content{
+				top: 0px;
+			}
+		}
+
+		&.hidden{
+			.content{
+				top : 100%; 
+			}
+		}
+	}
+
+	// 表示非表示時状態
+ 	&.box_view{
+		#box{
+			top: 0;
+			left: 0;
+		}
+
+		#board{
+			top: 0;
+			left: 100%;
+		}
+
+		#prize{
+			top: -100%;
+			left : 0;
+		}
+
+		#bingo_call{
+			top: 100%;
+			left : 0;
+		}
+
+		#lizhi_call{
+			top: 100%;
+			left : 0;
+		}
+	}
+
+ 	&.board_view{
+		#box{
+			top: 0;
+			left: -100%;
+
+		}
+
+		#board{
+			top: 0;
+			left: 0;
+		}
+
+		#prize{
+			top: -100%;
+			left : 0;
+		}
+
+		#bingo_call{
+			top: 100%;
+			left : 0;
+		}
+
+		#lizhi_call{
+			top: 100%;
+			left : 0;
+		}
+ 	}
+
+ 	&.prize_view{
+		#box{
+			top: 100%;
+			left: 0;
+		}
+
+		#board{
+			top: 100%;
+			left: 100%;
+		}
+
+		#prize{
+			top: 0;
+			left:0;
+		}
+
+		#bingo_call{
+			top: 100%;
+			left : 0;
+		}
+
+		#lizhi_call{
+			top: 100%;
+			left : 0;
+		}
+	}
+
+ 	&.bingo_call_view{
+		#box{
+			-webkit-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+		}
+
+		#board{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+		}
+
+		#prize{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+		}
+
+		#bingo_call{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+		}
+
+		#lizhi_call{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+		}
+ 	}
+
+ 	&.lizhi_call_view{
+		#box{
+			-webkit-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(0,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+		}
+
+		#board{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+		}
+
+		#prize{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+		}
+
+		#bingo_call{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+		}
+
+		#lizhi_call{
+			-webkit-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+		}
+ 	}
+ }

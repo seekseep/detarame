@@ -1,0 +1,62 @@
+				<svg viewBox="0 0 100 100">
+					<g>
+						<g>
+							<rect width="30"	height="3" x="0" y="0"/>
+							<rect width="3"		height="21" x="0" y="3"/>
+							<rect width="3" 	height="21" x="27" y="3"/>
+							<rect width="30" 	height="6" 	x="0" y="24"/>
+						</g>
+						<g>
+							<rect width="30"	height="3" x="35" y="0"/>
+							<rect width="3"		height="21" x="35" y="3"/>
+							<rect width="3" 	height="21" x="62" y="3"/>
+							<rect width="30" 	height="6" 	x="35" y="24"/>
+						</g>
+						<g>
+							<rect width="30"	height="3" x="70" y="0"/>
+							<rect width="3"		height="21" x="70" y="3"/>
+							<rect width="3" 	height="21" x="97" y="3"/>
+							<rect width="30" 	height="6" 	x="70" y="24"/>
+						</g>
+					</g>
+					<g>
+						<g>
+							<rect width="30"	height="3" x="0" y="35"/>
+							<rect width="3"		height="21" x="0" y="38"/>
+							<rect width="3" 	height="21" x="27" y="38"/>
+							<rect width="30" 	height="6" 	x="0" y="59"/>
+						</g>
+						<g>
+							<rect width="30"	height="3" x="35" y="35"/>
+							<rect width="3"		height="21" x="35" y="38"/>
+							<rect width="3" 	height="21" x="62" y="38"/>
+							<rect width="30" 	height="6" 	x="35" y="59"/>
+						</g>
+						<g>
+							<rect width="30"	height="3" x="70" y="35"/>
+							<rect width="3"		height="21" x="70" y="38"/>
+							<rect width="3" 	height="21" x="97" y="38"/>
+							<rect width="30" 	height="6" 	x="70" y="59"/>
+						</g>
+					</g>
+					<g>
+						<g>
+							<rect width="30"	height="3" x="0" y="75"/>
+							<rect width="3"		height="21" x="0" y="78"/>
+							<rect width="3" 	height="21" x="27" y="78"/>
+							<rect width="30" 	height="6" 	x="0" y="97"/>
+						</g>
+						<g>
+							<rect width="30"	height="3" x="35" y="75"/>
+							<rect width="3"		height="21" x="35" y="78"/>
+							<rect width="3" 	height="21" x="62" y="78"/>
+							<rect width="30" 	height="6" 	x="35" y="97"/>
+						</g>
+						<g>
+							<rect width="30"	height="3" x="70" y="75"/>
+							<rect width="3"		height="21" x="70" y="78"/>
+							<rect width="3" 	height="21" x="97" y="78"/>
+							<rect width="30" 	height="6" 	x="70" y="97"/>
+						</g>
+					</g>					
+				</svg>		

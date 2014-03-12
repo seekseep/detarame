@@ -1,0 +1,14 @@
+@font-face {
+  font-family: UtsukushiMincho;
+  src: url(../font/UtsukushiMincho.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: Quicksand-Bold;
+  src: url(../font/Quicksand-Bold.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
