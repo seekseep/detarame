@@ -15,7 +15,7 @@ $debugMode : false;
 @if $debugMode == true{
 	*{
 		outline: solid 1px red;
-	}	
+	}
 }
 
 
@@ -30,7 +30,7 @@ body{
 	   -moz-transition: $property $duration $timing $delay;
 	    -ms-transition: $property $duration $timing $delay;
 	     -o-transition: $property $duration $timing $delay;
-	        transition: $property $duration $timing $delay;	
+	        transition: $property $duration $timing $delay;
 }
 
 .background{
@@ -85,12 +85,12 @@ section#welcome{
 				}
 				& > *{
 					margin-top: 0;
-					margin-bottom: 1.5em;	
+					margin-bottom: 1.5em;
 				}
 				& > p{
 					margin-right: auto;
 					margin-left: auto;
-					width: 500px; 
+					width: 500px;
 				}
 				.btn{
 				    @include transition(background-color);
@@ -102,7 +102,7 @@ section#welcome{
 			        color: #FFF;
 			        text-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 					word-spacing: 2em;
-					font-size: 110%;	
+					font-size: 110%;
 			        &:hover{
 					    @include transition(background-color);
 			        	background-color: lighten(#478384, 5%);
@@ -110,10 +110,10 @@ section#welcome{
 			        &:active{
 				        @include transition(background-color);
 			        	background-color: darken(#478384, 5%);
-			        }			        
+			        }
 				}
 			}
-		}	
+		}
 	}
 	#welcome_detail{
 		padding-bottom:5em;
@@ -169,23 +169,23 @@ section#welcome{
 	}
 
 	&.col-1{
-		color : #96514d;		
+		color : #96514d;
 	}
 
 	&.col-2{
-		color : #e6b422;		
+		color : #e6b422;
 	}
 
 	&.col-3{
-		color : #006e54;		
+		color : #006e54;
 	}
 
 	&.col-4{
-		color : #5b7e91;		
+		color : #5b7e91;
 	}
 
 	&.col-5{
-		color : #895b8a;		
+		color : #895b8a;
 	}
 
 	&.uncalled{
@@ -281,7 +281,7 @@ section#welcome{
 		    left: 0;
 		    z-index: 20;
 		    padding-top: 100px;
-		    
+
 		    .inner{
 		    	position: relative;
 		    	width: 100%;
@@ -315,7 +315,7 @@ section#welcome{
 		    		   -moz-transform: translate(-50%, -50%) rotateY(360deg);
 		    		    -ms-transform: translate(-50%, -50%) rotateY(360deg);
 		    		     -o-transform: translate(-50%, -50%) rotateY(360deg);
-		    		        transform: translate(-50%, -50%) rotateY(360deg);		    		
+		    		        transform: translate(-50%, -50%) rotateY(360deg);
 		    		-webkit-transition: -webkit-transform  .2s linear 0s;
 		    		   -moz-transition:    -moz-transform  .2s linear 0s;
 		    		    -ms-transition:     -ms-transform  .2s linear 0s;
@@ -325,16 +325,16 @@ section#welcome{
 
 
 		    }
-		    
+
 		    @for $i from 1 to 10{
 
 		    	$minHeight: 300px + $i * 50;
 		    	$ballSize:  ($minHeight - 100);
-		    	
+
 		    	@media screen and (min-height: #{$minHeight}) and (min-width: #{$minHeight}){
 			    	.bingo-ball{
 			    		@include bingo-ball($ballSize);
-			    	}		    		
+			    	}
 		    	}
 
 		    }
@@ -378,14 +378,15 @@ section#welcome{
 					width: #{$minWidth};
 					height: #{$minHeight};
 				}
-			}			
+			}
 		}
 	}
 
 	#prize{
-		opacity: 1;		
+		opacity: 1;
 		background-color: #{$prizeBgColor};
-		
+		overflow:scroll;
+
 		&>.inner{
 			position: absolute;
 			top: 50%;
@@ -395,7 +396,7 @@ section#welcome{
 			    -ms-transform: translate(-50%, -50%);
 			     -o-transform: translate(-50%, -50%);
 			        transform: translate(-50%, -50%);
-			
+
 			.prize-unit{
 				-webkit-box-sizing: border-box;
 				   -moz-box-sizing: border-box;
@@ -415,12 +416,23 @@ section#welcome{
 					}
 					.prize-content{
 						float: left;
+						position: relative;
 						.prize-title{
 							line-height: 1.8;
 							font-width: bold;
 							color: #333;
 							text-align: center;
 							text-shadow: 0px 0px #333;
+							position: absolute;
+							width: 90%;
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							-webkit-transform: translate(-50%, -50%);
+							-moz-transform: translate(-50%, -50%);
+							-ms-transform: translate(-50%, -50%);
+							-o-transform: translate(-50%, -50%);
+							transform: translate(-50%, -50%);
 						}
 						.prize-description{
 							color: #999;
@@ -436,7 +448,7 @@ section#welcome{
 
 				&.called{
 					&>.inner{
-						opacity: 0.5;
+						/* opacity: 0.5; */
 						-webkit-transform: rotateX(0deg);
 						   -moz-transform: rotateX(0deg);
 						    -ms-transform: rotateX(0deg);
@@ -452,7 +464,7 @@ section#welcome{
 						   -moz-transform: rotateX(360deg);
 						    -ms-transform: rotateX(360deg);
 						     -o-transform: rotateX(360deg);
-						        transform: rotateX(360deg);						
+						        transform: rotateX(360deg);
 					}
 				}
 			}
@@ -479,6 +491,54 @@ section#welcome{
 					width: #{$unitWidth};
 					height: #{$unitHeight};
 
+
+
+					&.uncalled{
+						opacity: 1;
+						&>.inner{
+							opacity: 1;
+						}
+						.prize-content{
+							opacity: 0;
+						}
+						&::after{
+							font-family: Quicksand-Bold;
+							font-size: 300%;
+							color: #999;
+							content: attr(data-num);
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							opacity: 1;
+							-webkit-transform: translate(-50%, -50%);
+							-moz-transform: translate(-50%, -50%);
+							-ms-transform: translate(-50%, -50%);
+							-o-transform: translate(-50%, -50%);
+							transform: translate(-50%, -50%);
+						}
+					}
+
+					&.called{
+						.prize-content{
+							opacity: 1;
+						}
+						&::after{
+							font-family: Quicksand-Bold;
+							font-size: 300%;
+							color: #999;
+							content: attr(data-num);
+							position: absolute;
+							opacity: 0;
+							top: 50%;
+							left: 50%;
+							-webkit-transform: translate(-50%, -50%);
+							-moz-transform: translate(-50%, -50%);
+							-ms-transform: translate(-50%, -50%);
+							-o-transform: translate(-50%, -50%);
+							transform: translate(-50%, -50%);
+						}
+					}
+
 					&>.inner{
 						.prize-image{
 							display: none;
@@ -487,9 +547,9 @@ section#welcome{
 						}
 						.prize-content{
 							width: #{$unitInnerWidth};
-							height: #{$unitInnerHeight * 0.5};
+							height: #{$unitInnerHeight};
 							.prize-title{
-								height: #{$unitInnerHeight * 0.2};
+								// height: #{$unitInnerHeight * 0.2};
 								font-size: #{$unitInnerHeight * 0.18};
 								padding:#{$unitInnerHeight * 0.15} #{$unitInnerHeight * 0.1};
 							}
@@ -502,18 +562,18 @@ section#welcome{
 							}
 						}
 					}
-				}			
+				}
 			}
 		}
 	}
 
 	#bingo_call{
-		opacity: 1;		
+		opacity: 1;
 		background-color: #{$bingoCallBgColor};
 	}
 
 	#lizhi_call{
-		opacity: 1;		
+		opacity: 1;
 		background-color: #{$lizhiCallBgColor};
 	}
 
@@ -525,7 +585,7 @@ section#welcome{
 		left: 0;
 		z-index: 1000;
 		box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
-		
+
 		.button{
 			position: absolute;
 			right: 0;
@@ -575,7 +635,7 @@ section#welcome{
 				&:hover{
 					background-color: rgba(0,0,0,0.1);
 					box-shadow: 0px 0px rgba(0,0,0,0.2) inset;
-				}	
+				}
 			}
 		}
 
@@ -587,7 +647,7 @@ section#welcome{
 
 		&.hidden{
 			.content{
-				top : 100%; 
+				top : 100%;
 			}
 		}
 	}
@@ -705,7 +765,7 @@ section#welcome{
 			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
-			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 		}
 
 		#lizhi_call{
@@ -713,7 +773,7 @@ section#welcome{
 			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
-			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 		}
  	}
 
@@ -747,7 +807,7 @@ section#welcome{
 			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
-			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 		}
 
 		#lizhi_call{
@@ -755,7 +815,7 @@ section#welcome{
 			   -moz-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			    -ms-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 			     -o-transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
-			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);			
+			        transform: translate(100%,0,0) rotate3d(0deg, 0deg, 0deg) skew(1, 1) scale3d(1,1,1);
 		}
  	}
  }

@@ -35,13 +35,13 @@ var appViewStatus = 'box';
 // コントローラーの表示状態
 //		- visible	表示
 //		- hidden	非表示
-var appContorollerViewStatus = 'visible';	
+var appContorollerViewStatus = 'visible';
 
 // 回転タイマー
 var bingoBoxTimer = undefined;
-	
+
 // 数値確定前に表示する回数
-var bingoBoxTimeDefault = 20;
+var bingoBoxTimeDefault = 24;
 var bingoBoxTime 		= bingoBoxTimeDefault;
 
 
@@ -59,7 +59,7 @@ function makeTestData(){
 
 	for(var i = 0; i < 10; i++){
 		var r = Math.floor(Math.random() * testBingoBox.length) - 1;
-		var n = testBingoBoard.push(testBingoBox.splice(r,1)[0]);		
+		var n = testBingoBoard.push(testBingoBox.splice(r,1)[0]);
 	}
 
 	// cookieに保存
@@ -206,7 +206,7 @@ function changePortNumber(number){
 		.addClass('col-' + Math.ceil(number / 15));
 
 	if(Math.ceil(number / 15) == NaN){
-		console.log(number,Math.ceil(number / 15));		
+		console.log(number,Math.ceil(number / 15));
 	}
 
 	return true;
@@ -232,7 +232,7 @@ function addBingoBoard(number){
 function addBingoBoxHistory(number){
 
 	if(!(Math.ceil(number / 15) > 0 && Math.ceil(number / 15) < 6)){
-		
+
 		console.log(number);
 
 		initBingo();
@@ -244,9 +244,9 @@ function addBingoBoxHistory(number){
 				'data-number' : number
 			})
 			.addClass('col-' + Math.ceil(number / 15))
-			.prependTo('#history > .inner');	
+			.prependTo('#history > .inner');
 
-		return number;		
+		return number;
 	}
 
 }
@@ -258,12 +258,13 @@ function startTurnBingoBox(){
 	console.log('startTurnBingoBox');
 
 	$('#port_number').removeClass('fixed');
+	console.log(new Date());
 
 	if(bingoBoxTimer){
 		return false;
 	}else{
 		turnBingoBox();
-
+		playDrumRoll();
 		return false;
 	}
 }
@@ -272,7 +273,7 @@ function turnBingoBox(){
 
 	var id 		= getFreeBingoBallId();
 
-	var number 	=  bingoBox[id]; 
+	var number 	=  bingoBox[id];
 
 	changePortNumber(number);
 
@@ -307,6 +308,7 @@ function fixBoardNumber(id){
 	addBingoBall(number);
 
 	setBingoStatus();
+	console.log(new Date());
 }
 
 
@@ -407,11 +409,11 @@ function switchControllerView(){
 function hiddenController(){
 		$('#controller')
 			.removeClass('view')
-			.addClass('hidden');	
+			.addClass('hidden');
 }
 
 // ================================================
-// キーボードからの操作	
+// キーボードからの操作
 
 $(window).keydown(function(e){
 
@@ -487,15 +489,15 @@ $(window).keydown(function(e){
 		return false;
 	}
 
-	// alt キー 
+	// alt キー
 	if(e.keyCode == 18){
 		switchControllerView();
 		return false;
 	}
 
-	// space キー 
+	// space キー
 	if(e.keyCode == 32){
-		
+
 		if(appViewStatus == 'box'){
 			startTurnBingoBox();
 		}else{
@@ -554,6 +556,33 @@ $(window).keydown(function(e){
 		return false;
 	}
 
+	if(e.keyCode == 67){
+
+		playCoin();
+		console.log("coin");
+
+	}
+
+	if(e.keyCode == 88){
+		console.log("crup");
+		playCrup();
+
+	}
+
+	if(e.keyCode == 68){
+		console.log("1up");
+		play1up();
+	}
+
+	if(e.keyCode == 83){
+		console.log("crup2");
+		playCrup2();
+	}
+
+	if(e.keyCode == 90){
+		playDoraemon();
+	}
+
 	console.log(e.keyCode);
 });
 
@@ -568,15 +597,20 @@ $(document).ready(function(){
 
 	$('.prize-unit').click(function(){
 
-		if($(this).hasClass('called')){
+		if($(this).hasClass('called')){ //
 			$(this)
 				.removeClass('called')
 				.addClass('uncalled');
 		}else{
+			playDoraemon();
 			$(this)
 				.removeClass('uncalled')
 				.addClass('called');
 		}
 
+	})
+
+	$(".prize-unit").each(function(idx, ele){
+		$(ele).attr("data-num", idx+1);
 	})
 })
